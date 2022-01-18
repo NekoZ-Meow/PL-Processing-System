@@ -1,8 +1,13 @@
 Program ::= Statements
-Statements ::= Statement
-|Statements Statement
 
-Statement ::= Assign NEWLINE
+Statements ::= StatementNewline
+|Statements StatementNewline
+
+StatementNewline ::= Statement
+| Newline Statement
+| StatementNewline Statement
+
+Statement ::= Assign Newline
 
 Assign ::= Variable TILDE VERTICAL Expression VERTICAL
 
@@ -17,6 +22,8 @@ Factor::=Variable
 Variable ::= ID
 Constant::= INTEGER | FLOAT
 
+Newline::=NEWLINE
+|Newline NEWLINE
 
 SEMICOLON ::= ";"
 TILDE ::= "~"
@@ -24,5 +31,5 @@ VERTICAL ::= "|"
 OPERATOR ::= "+"|"-"
 INTEGER ::= [0-9]+
 FLOAT ::= [0-9]+ "." [0-9]+
-NEWLINE ::= [\r\n\r\n]
+NEWLINE ::= "\r" | "\r\n" | "\n"
 ID ::= .*
