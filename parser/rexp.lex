@@ -18,7 +18,11 @@ int linecounter = 1;
 "\r"                                            { linecounter++; return(NEWLINE); }
 " "|"\t"                                        { }
 "/*"                                            { comment(); }
-[^\t \n\r~|\(\)\+\-]+                                     { return(ID); }
+[^\t \n\r~|\(\)\+\-]+                           { return(ID); }
+<<EOF>> {
+	// 最後の行が改行ではなかった時、改行を加える
+	static int once = 0; return (once = !once) ? NEWLINE : 0;
+	}
 %%
 int yywrap(void) {
 	return(1);
