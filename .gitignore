@@ -9,3 +9,4 @@ lex.yy.c
 y.tab.o
 main.o
 tree
+.vscode
