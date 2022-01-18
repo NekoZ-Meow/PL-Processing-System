@@ -20,7 +20,7 @@ int linecounter = 1;
 "/*"                                            { comment(); }
 [^\t \n\r~|\(\)\+\-]+                           { return(ID); }
 <<EOF>> {
-	// 最後の行が改行ではなかった時、改行を加える
+	// 最後の行が改行ではなかった時のために、改行を加える
 	static int once = 0; return (once = !once) ? NEWLINE : 0;
 	}
 %%
