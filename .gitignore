@@ -1,0 +1,11 @@
+.DS_Store
+*.o
+*.s
+*.i
+*.bc
+tmp.txt
+y.tab.c
+lex.yy.c
+y.tab.o
+main.o
+tree
