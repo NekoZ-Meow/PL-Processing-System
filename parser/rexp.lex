@@ -3,27 +3,22 @@ int linecounter = 1;
 %}
 %option nounput
 %%
-"int"                                           { return(INT); }
-"float"                                         { return(FLOAT); }
-"print"                                         { return(PRINT); }
-[a-zA-Z_][a-zA-Z0-9_]*                          { return(ID); }
 [0-9]+                                          { return(INTEGER); }
 [0-9]*"."[0-9]+                                 { return(REAL); }
-";"                                             { return(SEMICOLON); }
-","                                             { return(COMMA); }
-"="                                             { return(EQUAL); }
+"~"                                             { return(TILDE); }
+"|"                                             { return(VERTICAL); }
 "+"                                             { return(ADD); }
 "-"                                             { return(SUBTRACT); }
 "*"                                             { return(MULTIPLY); }
 "/"                                             { return(DIVIDE); }
 "("                                             { return(LPAR); }
 ")"                                             { return(RPAR); }
-"\n"                                            { linecounter++; }
-"\r\n"                                          { linecounter++; }
-"\r"                                            { linecounter++; }
+"\n"                                            { linecounter++; return(NEWLINE); }
+"\r\n"                                          { linecounter++; return(NEWLINE); }
+"\r"                                            { linecounter++; return(NEWLINE); }
 " "|"\t"                                        { }
 "/*"                                            { comment(); }
-.                                               { return(UNKNOWN); }
+[^\t \n\r~|\(\)\+\-]+                                     { return(ID); }
 %%
 int yywrap(void) {
 	return(1);
