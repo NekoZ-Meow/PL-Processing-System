@@ -13,10 +13,10 @@ Statements
         | Statements StatementNewline                  { $$ = $2; tree($$); }
 StatementNewline
         : Statement                       { $$ = $1;}
-        | Newline Statement  { $$ = $2;}
+        | Newlines Statement  { $$ = $2;}
         | StatementNewline Statement  { $$ = $2;}
 Statement
-        : Assign Newline                     { $$ = $1; }
+        : Assign Newlines                     { $$ = $1; }
 Assign
         : Variable TILDE VERTICAL Expression VERTICAL
         { $$ = node("=", cons($1, $4)); }
@@ -35,9 +35,9 @@ Variable
 Constant
         : INTEGER                               { $$ = leaf("INTEGER", yytext); }
         | REAL                                  { $$ = leaf("REAL", yytext); }
-Newline
+Newlines
         : NEWLINE               {}
-        | Newline NEWLINE       {}
+        | Newlines NEWLINE       {}
 %%
 #include "lex.yy.c"
 void yyerror(char *s) {

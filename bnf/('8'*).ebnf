@@ -4,10 +4,10 @@ Statements ::= StatementNewline
 |Statements StatementNewline
 
 StatementNewline ::= Statement
-| Newline Statement
+| Newlines Statement
 | StatementNewline Statement
 
-Statement ::= Assign Newline
+Statement ::= Assign Newlines
 
 Assign ::= Variable TILDE VERTICAL Expression VERTICAL
 
@@ -22,14 +22,13 @@ Factor::=Variable
 Variable ::= ID
 Constant::= INTEGER | FLOAT
 
-Newline::=NEWLINE
-|Newline NEWLINE
+Newlines::=NEWLINE
+|Newlines NEWLINE
 
-SEMICOLON ::= ";"
 TILDE ::= "~"
 VERTICAL ::= "|"
 OPERATOR ::= "+"|"-"
 INTEGER ::= [0-9]+
 FLOAT ::= [0-9]+ "." [0-9]+
 NEWLINE ::= "\r" | "\r\n" | "\n"
-ID ::= .*
+ID ::= [^\t \n\r~|()+-]+
