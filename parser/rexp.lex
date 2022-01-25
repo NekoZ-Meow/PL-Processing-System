@@ -3,8 +3,10 @@ int linecounter = 1;
 %}
 %option nounput
 %%
+"📝"											{ return(PRINT); }
 [0-9]+                                          { return(INTEGER); }
 [0-9]*"."[0-9]+                                 { return(REAL); }
+"'"									        { return(CQUOTE);}
 "~"                                             { return(TILDE); }
 "|"                                             { return(VERTICAL); }
 "+"                                             { return(ADD); }
@@ -18,6 +20,7 @@ int linecounter = 1;
 "\r"                                            { linecounter++; return(NEWLINE); }
 " "|"\t"                                        { }
 "/*"                                            { comment(); }
+\".*\"									        { return(STRINGS); }
 [^\t \n\r~|\(\)\+\-]+                           { return(ID); }
 <<EOF>> {
 	// 最後の行が改行ではなかった時のために、改行を加える
