@@ -13,13 +13,12 @@ Statements
         | Statements StatementNewline                  { $$ = $2; tree($$); }
 StatementNewline
         : Statement                       { $$ = $1;}
-        | Newlines Statement  { $$ = $2;}
-        | StatementNewline Statement  { $$ = $2;}
+        | Newlines Statement             { $$ = $2;}
 Statement
         : Assign Newlines                     { $$ = $1; }
+        | Method Newlines                     { $$ = $1;}
 Assign
         : Variable TILDE VERTICAL Expression VERTICAL { $$ = node("=", cons($1, $4)); }
-        | Method                                { $$ = $1;}
 Method
         : PrintMethod                                { $$ = $1;}
 PrintMethod
@@ -28,7 +27,6 @@ Expression
         : Expression ADD Term                   { $$ = node("+", cons($1, $3)); }
         | Expression SUBTRACT Term              { $$ = node("-", cons($1, $3)); }
         | Term                                  { $$ = $1; }
-        | Strings                               { $$ = $1; }
 Term
         : Factor                                { $$ = $1; }
 Factor
@@ -37,16 +35,13 @@ Factor
         | LPAR Expression RPAR                  { $$ = $2; }
 Print
         : PRINT                                { $$ = leaf("print", yytext); }
-Strings 
-        : String                               { $$ = $1; }
-        | Strings String                       { $$ = $2; }
-String
-        : STRINGS                               { $$ = leaf("STRINGS", yytext); }
+     
 Variable
         : ID                                    { $$ = leaf("ID", yytext); }
 Constant
         : INTEGER                               { $$ = leaf("INTEGER", yytext); }
         | REAL                                  { $$ = leaf("REAL", yytext); }
+        | STRINGS                               { $$ = leaf("STRINGS", yytext); }
 Newlines
         : NEWLINE               {}
         | Newlines NEWLINE       {}
