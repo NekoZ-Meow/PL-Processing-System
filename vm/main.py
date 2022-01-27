@@ -21,8 +21,16 @@ def main() -> int:
     """
 
     grammar_file = "./grammar.lark"
+    source_files = []
+    if len(sys.argv) > 1:
+        source_files = sys.argv[1:]
     a_interpretor = Interpreter(grammar_file)
-    a_interpretor.execute_file("./tmp.txt")
+    if source_files:
+        for file in source_files:
+            a_interpretor.execute_file(file)
+    else:
+        # インタラクティヴモード
+        pass
     return 0
 
 
