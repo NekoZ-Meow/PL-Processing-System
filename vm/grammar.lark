@@ -5,17 +5,22 @@ tree : node
 
 node : "node" "(" operator cons ")" -> operation
 | "node" "(" assign cons ")" -> assignment
+| "node" "(" "Print" (node|leaf) ")" -> print
 
-assign = "="
 operator : "+"|"-"|"*"|"/"
+assign : "="
 
 cons : "cons" "(" (node|leaf) (node|leaf) ")"
 
-leaf : "leaf" "(" (variable|constant) (identifier|number) ")"
+leaf : "leaf" "(" variable identifier ")" -> create_id
+| "leaf" "(" constant (integer|float|string) ")" -> create_constant
+
 variable : "ID"
-constant : "INTEGER"|"REAL"
+constant : "INTEGER"|"REAL"|"STRINGS"
 identifier : /[^\t \n\r~|\(\)\+\-]+/
-number : /[0-9]*([0-9]|.[0-9]+)/
+integer : /[0-9]+[0-9]*/
+float : /[0-9]*\.[0-9]+/
+string: /\'.*\'/
 
 %import common.WS
 %ignore WS
