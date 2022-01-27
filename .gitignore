@@ -11,3 +11,4 @@ main.o
 tree
 .vscode
 *.asta.lock
+__pycache__
