@@ -10,3 +10,4 @@ y.tab.o
 main.o
 tree
 .vscode
+*.asta.lock

@@ -6,16 +6,18 @@ tree : node
 node : "node" "(" operator cons ")" -> operation
 | "node" "(" assign cons ")" -> assignment
 
-assign = "="
+assign : "="
 operator : "+"|"-"|"*"|"/"
 
 cons : "cons" "(" (node|leaf) (node|leaf) ")"
 
-leaf : "leaf" "(" (variable|constant) (identifier|number) ")"
+leaf : "leaf" "(" variable identifier ")" -> create_id
+| "leaf" "(" constant (integer|float) ")" -> create_constant
 variable : "ID"
 constant : "INTEGER"|"REAL"
 identifier : /[^\t \n\r~|\(\)\+\-]+/
-number : /[0-9]*([0-9]|.[0-9]+)/
+integer : /[0-9]+[0-9]*/
+float : /[0-9]*\.[0-9]+/
 
 %import common.WS
 %ignore WS
