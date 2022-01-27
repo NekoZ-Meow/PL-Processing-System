@@ -2,7 +2,7 @@
 #include "defs.h"
 #define YYSTYPE Cell *
 %}
-%token  ID INTEGER REAL TILDE VERTICAL NEWLINE MULTIPLY DIVIDE
+%token  ID INTEGER REAL TILDE VERTICAL NEWLINE MULTIPLY DIVIDE PRINT STRINGS
         ADD SUBTRACT LPAR RPAR UNKNOWN;
 %%
 
@@ -13,13 +13,16 @@ Statements
         | Statements StatementNewline                  { $$ = $2; tree($$); }
 StatementNewline
         : Statement                       { $$ = $1;}
-        | Newlines Statement  { $$ = $2;}
-        | StatementNewline Statement  { $$ = $2;}
+        | Newlines Statement             { $$ = $2;}
 Statement
         : Assign Newlines                     { $$ = $1; }
+        | Method Newlines                     { $$ = $1;}
 Assign
-        : Variable TILDE VERTICAL Expression VERTICAL
-        { $$ = node("=", cons($1, $4)); }
+        : Variable TILDE VERTICAL Expression VERTICAL { $$ = node("=", cons($1, $4)); }
+Method
+        : PrintMethod                                { $$ = $1;}
+PrintMethod
+        : Print LPAR Expression RPAR            { $$ = node("Method", cons($1, $3)); }
 Expression
         : Expression ADD Term                   { $$ = node("+", cons($1, $3)); }
         | Expression SUBTRACT Term              { $$ = node("-", cons($1, $3)); }
@@ -30,11 +33,15 @@ Factor
         : Variable                              { $$ = $1; }
         | Constant                              { $$ = $1; }
         | LPAR Expression RPAR                  { $$ = $2; }
+Print
+        : PRINT                                { $$ = leaf("print", yytext); }
+     
 Variable
         : ID                                    { $$ = leaf("ID", yytext); }
 Constant
         : INTEGER                               { $$ = leaf("INTEGER", yytext); }
         | REAL                                  { $$ = leaf("REAL", yytext); }
+        | STRINGS                               { $$ = leaf("STRINGS", yytext); }
 Newlines
         : NEWLINE               {}
         | Newlines NEWLINE       {}
