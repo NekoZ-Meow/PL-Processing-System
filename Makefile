@@ -19,7 +19,7 @@ test:all
 	$(PYTHON) $(HIYO_DIR)$(HIYO)
 
 test-files:all
-	$(PYTHON) $(HIYO_DIR)$(HIYO) $(SOURCE_DIR)*.txt
+	@for each in $(SOURCE_DIR)*.txt;do echo "------$$each------"; $(PYTHON) $(HIYO_DIR)$(HIYO) $$each;done
 
 install:all
 	
@@ -30,3 +30,11 @@ clean:
 	rm -f $(HIYO_DIR).DS_Store
 	(cd $(PARSER_DIR); make clean)
 	(cd $(VM_DIR); make clean)
+
+
+lint:
+	@if [ ! -e $(LINTRCF) ] ; then $(PYLINT) --generate-rcfile > $(LINTRCF) 2> /dev/null ; fi
+	$(PYLINT) --rcfile=$(LINTRCF) --extension-pkg-whitelist=lark-parser ./$(TARGET) `find ./$(PKGPATH) -name "*.py" -not -name "__init__.py"` > $(LINTRST) ; less $(LINTRST)
+
+prepare:
+	(cd $(VM_DIR); make prepare)
