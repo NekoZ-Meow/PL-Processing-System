@@ -9,7 +9,7 @@ import os
 
 from lark import Lark
 
-from hiyo_vm.tree_transformer import TreeTransformer
+from hiyo.vm.hiyo_vm.tree_transformer import TreeTransformer
 
 GRAMMAR_FILE = os.sep.join([os.path.dirname(__file__), "grammar.lark"])
 

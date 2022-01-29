@@ -1,45 +1,90 @@
-HIYO_DIR = hiyo/
-HIYO = hiyo.py
-PARSER_DIR = ./parser/
-VM_DIR = ./vm/
-HIYO_VM = hiyo_vm
+PYTHON	= python
+PYDOC	= pydoc
+PYCS	= $(shell find . -name "*.pyc")
+PYCACHE	= $(shell find . -name "__pycache__")
+MODULE	= main
+TARGET	= $(MODULE).py
+PACKAGE	= hiyo
+PKGPATH	= $(shell echo $(PACKAGE) | sed -e 's/\./\//g')
+PKGTDIR	= $(shell echo $(PACKAGE) | cut -d '.' -f1)
+WORKDIR	= ./
 SOURCE_DIR = test_txt/
-
-PARSER = tree
-PYTHON = python3
-
 PYLINT	= pylint
 LINTRCF	= pylintrc.txt
 LINTRST	= pylintresult.txt
+ARGS	=
+
+PARSER_DIR = $(PACKAGE)/parser
 
 
 all:clean
 	(cd $(PARSER_DIR); make all)
-	(cd $(VM_DIR); make all)
-	cp -f $(PARSER_DIR)$(PARSER) ./$(HIYO_DIR)
-	cp -rf $(VM_DIR)$(HIYO_VM) ./$(HIYO_DIR)
 
-test:all
-	$(PYTHON) $(HIYO_DIR)$(HIYO)
+clean:
+	(cd $(PARSER_DIR); make clean)
+	@for each in ${PYCS} ; do echo "rm -f $${each}" ; rm -f $${each} ; done
+	@for each in ${PYCACHE} ; do echo "rm -f $${each}" ; rm -rf $${each} ; done
+	@if [ -e $(LINTRST) ] ; then echo "rm -f $(LINTRST)" ; rm -f $(LINTRST) ; fi
+	@if [ -e MANIFEST ] ; then echo "rm -f MANIFEST" ; rm -f MANIFEST ; fi
+	@find . -name ".DS_Store" -exec rm {} ";" -exec echo rm -f {} ";"
+
+test: all
+	$(PYTHON) $(TARGET) ${ARGS}
 
 test-files:all
-	@for each in $(SOURCE_DIR)*.txt;do echo "------$$each------"; $(PYTHON) $(HIYO_DIR)$(HIYO) $$each;done
+	@for each in $(SOURCE_DIR)*.txt;do echo "------$$each------"; $(PYTHON) $(TARGET) $$each;done
 
 install:all
-	
-clean:
-	rm -rf $(HIYO_DIR)$(HIYO_VM)
-	rm -rf $(HIYO_DIR)__pycache__
-	rm -f $(HIYO_DIR)$(PARSER)
-	rm -f $(HIYO_DIR).DS_Store
-	@if [ -e $(LINTRST) ] ; then echo "rm -f $(LINTRST)" ; rm -f $(LINTRST) ; fi
-	(cd $(PARSER_DIR); make clean)
-	(cd $(VM_DIR); make clean)
-
 
 lint:
 	@if [ ! -e $(LINTRCF) ] ; then $(PYLINT) --generate-rcfile > $(LINTRCF) 2> /dev/null ; fi
-	$(PYLINT) --rcfile=$(LINTRCF) --extension-pkg-whitelist=lark-parser `find ./$(HIYO_DIR) -name "*.py" -not -name "__init__.py"` > $(LINTRST) ; less $(LINTRST)
+	$(PYLINT) --rcfile=$(LINTRCF) --extension-pkg-whitelist=lark-parser ./$(TARGET) `find ./$(PKGPATH) -name "*.py" -not -name "__init__.py"` > $(LINTRST) ; less $(LINTRST)
 
-prepare:
-	(cd $(VM_DIR); make prepare)
+# 
+# pip is the PyPA recommended tool for installing Python packages.
+# 
+pip:
+	@if [ -z `which pip` ]; \
+	then \
+		(cd $(WORKDIR); curl -O https://bootstrap.pypa.io/get-pip.py); \
+		(cd $(WORKDIR); sudo -H python get-pip.py); \
+		(cd $(WORKDIR); rm -r get-pip.py); \
+	else \
+		(cd $(WORKDIR); sudo -H pip install -U pip); \
+	fi
+
+# 
+# Pylint is a tool that checks for errors in Python code,
+# tries to enforce a coding standard and looks for code smells.
+# 
+pylint:
+	@if [ -z `pip list --format=freeze | grep pylint` ]; \
+	then \
+		(cd $(WORKDIR); sudo -H pip install pylint); \
+	else \
+		(cd $(WORKDIR); sudo -H pip install pylint -U); \
+	fi
+
+# 
+# 構文解析を行うためのライブラリLarkをインストールする
+# 
+lark:
+	@if [ -z `pip list --format=freeze | grep lark-parser=` ]; \
+	then \
+		(cd $(WORKDIR); sudo -H pip install sip); \
+		(cd $(WORKDIR); sudo -H pip install lark-parser); \
+	else \
+		(cd $(WORKDIR); sudo -H pip install sip -U); \
+		(cd $(WORKDIR); sudo -H pip install lark-parser -U); \
+	fi
+
+# 
+# List of the required packages
+# 
+list: pip
+	@(pip list --format=freeze | grep ^pip)
+	@(pip list --format=freeze | grep ^pylint)
+	@(pip list --format=freeze | grep ^sip)
+	@(pip list --format=freeze | grep ^lark-parser)
+
+prepare: pip pylint lark

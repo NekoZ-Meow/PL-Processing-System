@@ -7,12 +7,12 @@ hiyo言語のインタラクティヴシェル
 
 import os
 import sys
-from source_to_tree import SourceToTree
 
-from hiyo_vm.executer import Executer
 from lark.exceptions import VisitError
+from hiyo.source_to_tree import SourceToTree
+from hiyo.vm.hiyo_vm.executer import Executer
 
-PARSER_FILE = os.sep.join([os.path.dirname(__file__), "tree"])
+PARSER_FILE = os.sep.join([os.path.dirname(__file__), "hiyo", "parser", "tree"])
 
 
 def main() -> int:

@@ -7,7 +7,7 @@
 
 from lark import Transformer, v_args
 
-from hiyo_vm.id import ID
+from hiyo.vm.hiyo_vm.id import ID
 
 
 @v_args(inline=True)

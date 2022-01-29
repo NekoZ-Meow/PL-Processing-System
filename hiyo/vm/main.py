@@ -7,7 +7,7 @@
 
 import sys
 
-from hiyo_vm.executer import Executer
+from hiyo.vm.hiyo_vm.executer import Executer
 
 
 def main() -> int:
