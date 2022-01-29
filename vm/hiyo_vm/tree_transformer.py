@@ -5,8 +5,6 @@
 意味解析で行う処理群を記述したクラス
 '''
 
-from enum import Enum
-
 from lark import Transformer, v_args
 
 from hiyo_vm.id import ID
@@ -17,15 +15,6 @@ class TreeTransformer(Transformer):
     """
     Larkで意味解析を行うためのクラス
     """
-
-    class Type(Enum):
-        """
-        変数の型の定義
-        """
-
-        INTEGER = "INTEGER",
-        REAL = "REAL",
-        STRINGS = "STRINGS",
 
     def __init__(self, visit_tokens: bool = True) -> None:
         """
@@ -64,7 +53,7 @@ class TreeTransformer(Transformer):
         """
         (lambda x: x)(self)  # NOP
         # print(self.variable_dict)
-        return True
+        return tokens
 
     def tree(self, *tokens):
         '''
@@ -88,7 +77,7 @@ class TreeTransformer(Transformer):
         if operator == "+":
             return left_value + right_value
 
-        elif operator == "-":
+        if operator == "-":
             return left_value - right_value
 
         raise SyntaxError(f"undefined operator '{operator}'")
@@ -130,13 +119,14 @@ class TreeTransformer(Transformer):
         '''
         leaf : "leaf" "(" variable identifier ")" -> create_id
         '''
-
+        (lambda x: x)(self)  # NOP
         return ID(tokens[3])
 
     def create_constant(self, *tokens):
         '''
         leaf : "leaf" "(" constant (integer|float) ")" -> create_constant
         '''
+        (lambda x: x)(self)  # NOP
         return tokens[3]
 
     def identifier(self, *tokens):
@@ -155,14 +145,14 @@ class TreeTransformer(Transformer):
 
     def float(self, *tokens):
         '''
-        float : /[0-9]*\.[0-9]+/
+        float : /[0-9]*.[0-9]+/
         '''
         (lambda x: x)(self)  # NOP
         return float(tokens[0])
 
     def string(self, *tokens):
         '''
-        string: /\'.*\'/
+        string: /'.*'/
         '''
         (lambda x: x)(self)  # NOP
         return str(tokens[0][1:-1])

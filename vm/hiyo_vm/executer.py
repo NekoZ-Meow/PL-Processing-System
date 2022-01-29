@@ -11,13 +11,15 @@ from lark import Lark
 
 from hiyo_vm.tree_transformer import TreeTransformer
 
+GRAMMAR_FILE = os.sep.join([os.path.dirname(__file__), "grammar.lark"])
 
-class Interpreter:
+
+class Executer:
     """
-    構文解析を行い、Cellの木構造を構築する
+    木構造表現を読み込み、実行する
     """
 
-    def __init__(self, grammar_file: str) -> None:
+    def __init__(self) -> None:
         """
         初期設定
 
@@ -27,10 +29,7 @@ class Interpreter:
             構文解析のための構文を記述したファイル
         """
         self.grammar = ""
-        if not os.path.isfile(grammar_file):
-            raise ValueError(f"'{grammar_file}'は存在しません")
-
-        with open(grammar_file, "r", encoding="utf-8") as a_file:
+        with open(GRAMMAR_FILE, "r", encoding="utf-8") as a_file:
             self.grammar = "".join(a_file.readlines())
 
         self.transformer = TreeTransformer()
