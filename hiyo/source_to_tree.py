@@ -7,6 +7,7 @@ pythonと実行ファイルのインターフェースとなるクラス
 '''
 
 import subprocess
+from subprocess import CalledProcessError
 
 
 class SourceToTree:
@@ -41,10 +42,11 @@ class SourceToTree:
             木構造表現
         """
 
-        result = subprocess.run([self.parser], input=source_code,
-                                encoding="utf-8", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-        if result.returncode != 0:
-            raise SyntaxError(result.stderr)
+        try:
+            result = subprocess.run([self.parser], input=source_code,
+                                    encoding="utf-8", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, check=True)
+        except CalledProcessError as error:
+            raise SyntaxError(error.stderr) from error
 
         return result.stdout
 
@@ -63,11 +65,11 @@ class SourceToTree:
             木構造表現
         """
         result = None
-        with open(source_file, "r", encoding="utf-8") as file:
-            result = subprocess.run([self.parser], stdin=file,
-                                    encoding="utf-8", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-        if result is None:
-            raise ValueError(f"'{source_file}' cant open file.")
-        if result.returncode != 0:
-            raise SyntaxError(result.stderr)
+        try:
+            with open(source_file, "r", encoding="utf-8") as file:
+                result = subprocess.run([self.parser], stdin=file, encoding="utf-8",
+                                        stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, check=True)
+        except CalledProcessError as error:
+            raise SyntaxError(error.stderr) from error
+
         return result.stdout
