@@ -8,6 +8,10 @@ SOURCE_DIR = test_txt/
 PARSER = tree
 PYTHON = python3
 
+PYLINT	= pylint
+LINTRCF	= pylintrc.txt
+LINTRST	= pylintresult.txt
+
 
 all:clean
 	(cd $(PARSER_DIR); make all)
@@ -28,13 +32,14 @@ clean:
 	rm -rf $(HIYO_DIR)__pycache__
 	rm -f $(HIYO_DIR)$(PARSER)
 	rm -f $(HIYO_DIR).DS_Store
+	@if [ -e $(LINTRST) ] ; then echo "rm -f $(LINTRST)" ; rm -f $(LINTRST) ; fi
 	(cd $(PARSER_DIR); make clean)
 	(cd $(VM_DIR); make clean)
 
 
 lint:
 	@if [ ! -e $(LINTRCF) ] ; then $(PYLINT) --generate-rcfile > $(LINTRCF) 2> /dev/null ; fi
-	$(PYLINT) --rcfile=$(LINTRCF) --extension-pkg-whitelist=lark-parser ./$(TARGET) `find ./$(PKGPATH) -name "*.py" -not -name "__init__.py"` > $(LINTRST) ; less $(LINTRST)
+	$(PYLINT) --rcfile=$(LINTRCF) --extension-pkg-whitelist=lark-parser `find ./$(HIYO_DIR) -name "*.py" -not -name "__init__.py"` > $(LINTRST) ; less $(LINTRST)
 
 prepare:
 	(cd $(VM_DIR); make prepare)

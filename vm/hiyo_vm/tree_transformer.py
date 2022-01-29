@@ -87,6 +87,8 @@ class TreeTransformer(Transformer):
         node : "node" "(" assign cons ")" -> assignment
         '''
         key, value = tokens[3]
+        if isinstance(value, ID):
+            value = self.__get_from_variable_dict(value)
         self.variable_dict[key] = value
 
         return None
@@ -155,7 +157,7 @@ class TreeTransformer(Transformer):
         string: /'.*'/
         '''
         (lambda x: x)(self)  # NOP
-        return str(tokens[0][1:-1])
+        return str(tokens[0][1:-1]).replace("\\'", "'")
 
     def variable(self, *tokens):
         '''
