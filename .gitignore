@@ -13,3 +13,4 @@ tree
 *.asta.lock
 __pycache__
 .python-version
+pylintresult.txt
