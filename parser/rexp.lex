@@ -18,7 +18,7 @@ int linecounter = 1;
 "\r\n"                                          { linecounter++; return(NEWLINE); }
 "\r"                                            { linecounter++; return(NEWLINE); }
 " "|"\t"                                        { }
-"/*"                                            { comment(); }
+"/*".*                                          { comment(); }
 \'.*\'									        { return(STRINGS); }
 [^\t \n\r~|\(\)\+\-]+                           { return(ID); }
 <<EOF>> {

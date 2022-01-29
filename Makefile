@@ -19,7 +19,7 @@ test:all
 	$(PYTHON) $(HIYO_DIR)$(HIYO)
 
 test-files:all
-	$(PYTHON) $(HIYO_DIR)$(HIYO) $(SOURCE_DIR)*.txt
+	@for each in $(SOURCE_DIR)*.txt;do echo "------$$each------"; $(PYTHON) $(HIYO_DIR)$(HIYO) $$each;done
 
 install:all
 	
