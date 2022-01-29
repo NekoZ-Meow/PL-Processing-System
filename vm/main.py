@@ -7,7 +7,7 @@
 
 import sys
 
-from hiyo_vm.interpreter import Interpreter
+from hiyo_vm.executer import Executer
 
 
 def main() -> int:
@@ -20,17 +20,12 @@ def main() -> int:
         終了コード
     """
 
-    grammar_file = "./grammar.lark"
     source_files = []
     if len(sys.argv) > 1:
         source_files = sys.argv[1:]
-    a_interpretor = Interpreter(grammar_file)
-    if source_files:
-        for file in source_files:
-            a_interpretor.execute_file(file)
-    else:
-        # インタラクティヴモード
-        pass
+    a_interpretor = Executer()
+    for file in source_files:
+        a_interpretor.execute_file(file)
     return 0
 
 
