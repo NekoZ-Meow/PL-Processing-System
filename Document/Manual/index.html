@@ -20,6 +20,9 @@
     p {
       padding-left: 20pt;
     }
+    code {
+
+    }
     -->
   </style>
 
@@ -44,12 +47,107 @@
   <h2>プログラミング言語「言語処理系の開発」マニュアル</h2>
 
   <div class="belt">
-    <h3><a name="usrmanual">取扱説明書</a></h3>
+    <h3><a name="usrmanual">動作可能環境</a></h3>
   </div>
   <p>
-    公式リファレンス的なやつだよね  
+    AppleシリコンでもうごくよとかPythonいる？とかant系？？？ 
   </p>
 
+  <div class="belt">
+    <h3><a name="usrmanual">言語仕様</a></h3>
+  </div>
+  <p>
+    EBNF構文図式  
+  </p>
+
+  <div class="belt">
+    <h3><a name="usrmanual">導入方法</a></h3>
+  </div>
+  <p>
+    make系の動作手順 
+  </p>
+
+  <div class="belt">
+    <h3><a name="usrmanual">書いてみよう</a></h3>
+  </div>
+  <p>
+    アプリケーションを起動できたら実際に書いてみましょう。<br>
+    変数の定義は以下のように記述します。
+  </p>
+  <pre>
+    <code> &lt;変数名&gt; ~ | &lt;値&gt; | </code>
+  </pre>
+  <p>
+    例えば🌷に2022という数を束縛するには、
+  </p>
+  <pre>
+    <code> 🌷 ~ | 2022 | </code>
+  </pre>
+  <p>
+    と書きます。値ではなく、2022という文字列を指定したい場合はシングルクォートで挟みます。
+  </p>
+  <pre>
+    <code> 🌻 ~ | &apos;2022&apos; | </code>
+  </pre>
+  <p>
+    プロンプタ( &gt;&gt;&gt; )に入力しましょう。
+  </p>
+  <pre>
+    <code> &gt;&gt;&gt; 🌷 ~ | 2022 |  
+ &gt;&gt;&gt; 🌻 ~ | &apos;2022&apos; |  </code>   
+  </pre>
+  <p>
+    では束縛した値がきちんと定義できたかみてみましょう。値の中身を見るには
+  </p>
+  <pre>
+    <code> 📝 ( &lt;変数名&gt; ) </code>
+  </pre>
+  <p>
+    と書きます。では入力してみましょう。
+  </p>
+  <pre>
+    <code> &gt;&gt;&gt; 📝 ( 🌷 ) 
+ 2022
+ &gt;&gt;&gt; 📝 ( 🌻 ) 
+ 2022</code>
+  </pre>
+  <p>
+    見かけ上は同じですが数値と文字列、それぞれ定義されています。確かめるために演算をおこなってみます。
+  </p>
+  <pre>
+    <code> &gt;&gt;&gt; 📝 ( 🌷 + 11 ) 
+ 2033
+ &gt;&gt;&gt; 📝 ( 🌻 + &apos;年度&apos; ) 
+ 2022年度</code>
+  </pre>
+  <p>
+    逆を行うと、エラーになります。
+  </p>
+  <pre>
+    <code> &gt;&gt;&gt; 📝 ( 🌷 + &apos;年度&apos; )
+ id '年度'' is not defined.
+ &gt;&gt;&gt; 📝 ( 🌻 + 11 )    
+ syntax error at 1: nearby "11" </code>
+  </pre>
+  <p>
+    このように数値同士または文字列同士は足し算を行うことができます。ちなみに、数値では
+  </p>
+  <pre>
+    <code> &gt;&gt;&gt; 📝 ( 🌷 - 22 ) 
+ 2000</code>
+  </pre>
+  <p>
+    このように引き算も可能です。また、繋げて計算をすることもできます。
+  </p>
+  <pre>
+    <code> &gt;&gt;&gt; 🎁 ~ | 2 + 3 - 4| 
+ &gt;&gt;&gt; 📝 ( 🎁 )
+ 1
+ &gt;&gt;&gt; 📝 ( 2 + 3 - 4 )
+ 1
+ &gt;&gt;&gt; 📝 ( 🎁 + 🌷 )
+ 2023 </code>
+  </pre>
 
   <div class="belt">
     <h3><a name="metrics">メトリクス</a></h3>
