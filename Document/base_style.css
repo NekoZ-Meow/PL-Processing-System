@@ -1,6 +1,6 @@
 @charset "utf-8";
 body {
-    background-color: #dbccbd;
+    background-color: #cbebed;
     margin: 20px;
     padding: 10px;
     font-family: serif;
@@ -13,15 +13,15 @@ a {
 }
 
 a:link {
-    background-color: #e7e9d0;
+    background-color: #fbffcf;
 }
 
 a:visited {
-    background-color: #c7c7af;
+    background-color: #dbfaaa;
 }
 
 a:hover {
-    background-color: #a79582;
+    background-color: #61c16c;
 }
 
 a:active {
@@ -29,7 +29,7 @@ a:active {
 }
 
 div.belt {
-    background-color: #ad9b85;
+    background-color: #c5faae;
     padding: 0px 4px;
 }
 
@@ -60,7 +60,7 @@ img.borderless {
 }
 
 p.belt {
-    background-color: #ffeedd;
+    background-color: #000000;
     padding: 4px 8px;
 }
 
@@ -103,7 +103,7 @@ table.belt {
     border-style: solid;
     border-width: 0px;
     border-color: #000000;
-    background-color: #ffeedd;
+    background-color: #ffffff;
     padding: 0px 0px;
     width: 100%;
 }
@@ -174,7 +174,7 @@ td.center-border1 {
     empty-cells: show;
     border-style: solid;
     border-width: 1px;
-    border-color: #ffc080;
+    border-color: #d7fcb6;
     width: 22px;
     height: 22px;
 }
@@ -236,9 +236,9 @@ th {
     text-decoration: none;
     margin: 0px;
     font-weight: bold;
-    background: #99a0c8;
+    background: #fdfeb5;
     color: #333333;
-    border: 1px solid #666666;
+    border: 1px solid #000000;
 }
 
 #menu a:hover {
@@ -246,11 +246,11 @@ th {
     padding: 2px 4px;
     border-bottom: 1px solid #000000;
     text-decoration: none;
-    background: #7381bd;
+    background: #bcc190;
 }
 
 #menu .current {
-    background-color: #47517e;
+    background-color: #e4b744;
     font-weight: bold;
     color: #FFFFFF;
     border: 1px solid #333333;
