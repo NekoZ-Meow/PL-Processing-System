@@ -5,6 +5,9 @@
 木構造を構文解析する
 '''
 
+__author__ = 'Okayama Kodai'
+__version__ = '1.0.0'
+
 import os
 
 from lark import Lark

@@ -4,8 +4,10 @@
 
 '''
 変数名を保持するクラス
-
 '''
+
+__author__ = 'Okayama Kodai'
+__version__ = '1.0.0'
 
 
 class ID:
