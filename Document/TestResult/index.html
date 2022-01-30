@@ -47,11 +47,63 @@
       <table border="1" summary="table">
         <tr>
           <th class="left-padding" abbr="1">テストケース</th>
-          <th class="left-padding" abbr="2">結果</th>
+          <th class="left-padding" abbr="2">望まれる動作</th>
+          <th class="left-padding" abbr="3">結果</th>
         </tr>
         <tr>
-          <td class="left-padding">最後に改行が含まれていない場合</td>
-          <td class="left-padding">改行を自動で含ませ正常動作</td>
+          <td class="left-padding">最後に改行が含まれていない</td>
+          <td class="left-padding">最後に改行を自動で含ませる</td>
+          <td class="left-padding">正常動作</td>
+        </tr>
+        <tr>
+          <td class="left-padding">インデントが揃っていない</td>
+          <td class="left-padding">インデント関係なしで正常動作</td>
+          <td class="left-padding">Non</td>
+        </tr>
+        <tr>
+          <td class="left-padding">意味のない改行が大量に含まれる</td>
+          <td class="left-padding">改行の量関係なしに正常動作</td>
+          <td class="left-padding">Non</td>
+        </tr>
+        <tr>
+          <td class="left-padding">スペースがなく詰めて記述されている</td>
+          <td class="left-padding">スペースがなくても正常動作</td>
+          <td class="left-padding">Non</td>
+        </tr> 
+        <tr>
+          <td class="left-padding">プリント関数に変数が渡された</td>
+          <td class="left-padding">変数の中身を出力する</td>
+          <td class="left-padding">Non</td>
+        </tr>
+        <tr>
+          <td class="left-padding">プリント関数に' 'で囲まれた文字列が渡された</td>
+          <td class="left-padding">　' ' の中身を出力する</td>
+          <td class="left-padding">Non</td>
+        </tr>
+        <tr>
+          <td class="left-padding">プリント関数に ' \' ' が渡された</td>
+          <td class="left-padding">　' を出力する(エスケープ可能か)</td>
+          <td class="left-padding">Non</td>
+        </tr>
+        <tr>
+          <td class="left-padding">文字列+文字列の定義がされた</td>
+          <td class="left-padding">文字列の結合を行う</td>
+          <td class="left-padding">Non</td>
+        </tr>
+        <tr>
+          <td class="left-padding">プリント関数に文字列+文字列が渡された</td>
+          <td class="left-padding">文字列を結合して出力する</td>
+          <td class="left-padding">Non</td>
+        </tr>
+        <tr>
+          <td class="left-padding">1行でいくつも定義を行う</td>
+          <td class="left-padding">文法エラーになる</td>
+          <td class="left-padding">Non</td>
+        </tr>
+        <tr>
+          <td class="left-padding">定義されていない変数を出力する</td>
+          <td class="left-padding">undefinedになる</td>
+          <td class="left-padding">Non</td>
         </tr>
       </table>
     </li>
