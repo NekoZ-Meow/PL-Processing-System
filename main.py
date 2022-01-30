@@ -5,11 +5,15 @@
 hiyo言語のインタラクティヴシェル
 '''
 
-import platform
+__author__ = 'Okayama Kodai'
+__version__ = '1.0.0'
+
 import os
+import platform
 import sys
 
 from lark.exceptions import VisitError
+
 from hiyo.source_to_tree import SourceToTree
 from hiyo.vm.hiyo_vm.executer import Executer
 
@@ -34,9 +38,9 @@ def make_do_script(executer: Executer, parse_func: 'function') -> 'function':
         try:
             executer.execute(parse_func(argument))
         except VisitError as error:
-            print(error.__context__, end="")
+            print(str(error.__context__).strip())
         except SyntaxError as error:
-            print(error, end="")
+            print(str(error).strip())
 
     return do_script
 
@@ -64,7 +68,7 @@ def main() -> int:
     else:
         # インタラクティヴモード
         do_script = make_do_script(a_executer, a_parser.parse)
-        print("Welcome to ('8'*) version 1.0.0 ", end="")
+        print(f"Welcome to ('8'*) version {__version__} ", end="")
         print("(Python " + ".".join(platform.python_version_tuple()) + ")", end=os.linesep * 2)
         try:
             while True:
