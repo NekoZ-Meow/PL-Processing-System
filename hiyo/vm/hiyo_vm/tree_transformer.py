@@ -9,6 +9,9 @@ from lark import Transformer, v_args
 
 from hiyo.vm.hiyo_vm.id import ID
 
+__author__ = 'Okayama Kodai'
+__version__ = '1.0.0'
+
 
 @v_args(inline=True)
 class TreeTransformer(Transformer):

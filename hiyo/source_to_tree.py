@@ -6,6 +6,9 @@
 pythonと実行ファイルのインターフェースとなるクラス
 '''
 
+__author__ = 'Okayama Kodai'
+__version__ = '1.0.0'
+
 import subprocess
 from subprocess import CalledProcessError
 
