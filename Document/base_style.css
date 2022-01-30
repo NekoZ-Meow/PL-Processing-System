@@ -71,12 +71,12 @@ p.belt-blue {
 
 pre.belt {
     background-color: #ddeeff;
-    padding: 4px 8px;
+    padding: 4px 4px;
 }
 
 pre.belt-yellow {
     background-color: #ffffcc;
-    padding: 4px 8px;
+    padding: 4px 4px;
 }
 
 table {
@@ -254,4 +254,15 @@ th {
     font-weight: bold;
     color: #FFFFFF;
     border: 1px solid #333333;
+}
+
+code {
+    display: inline-block;
+    color: #444; /* 文字色 */
+    background-color: #e7edf3; /* 背景色 */
+    border-radius: 4px; /* 角丸 */
+    border: solid 1px #d6dde4; /* 枠線 */
+}
+pre {
+    white-space: pre-wrap; /* はみ出たときに折り返す */
 }
