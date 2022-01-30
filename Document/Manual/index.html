@@ -20,9 +20,6 @@
     p {
       padding-left: 20pt;
     }
-    code {
-
-    }
     -->
   </style>
 
@@ -54,21 +51,21 @@
   </p>
 
   <div class="belt">
-    <h3><a name="usrmanual">言語仕様</a></h3>
+    <h3><a name="siyou">言語仕様</a></h3>
   </div>
   <p>
     EBNF構文図式  
   </p>
 
   <div class="belt">
-    <h3><a name="usrmanual">導入方法</a></h3>
+    <h3><a name="dounyuu">導入方法</a></h3>
   </div>
   <p>
     make系の動作手順 
   </p>
 
   <div class="belt">
-    <h3><a name="usrmanual">書いてみよう</a></h3>
+    <h3><a name="kaitemiru">書いてみよう</a></h3>
   </div>
   <p>
     アプリケーションを起動できたら実際に書いてみましょう。<br>
@@ -87,14 +84,14 @@
     と書きます。値ではなく、2022という文字列を指定したい場合はシングルクォートで挟みます。
   </p>
   <pre>
-    <code> 🌻 ~ | &apos;2022&apos; | </code>
+    <code> 🌻 ~ | '2022' | </code>
   </pre>
   <p>
     プロンプタ( &gt;&gt;&gt; )に入力しましょう。
   </p>
   <pre>
     <code> &gt;&gt;&gt; 🌷 ~ | 2022 |  
- &gt;&gt;&gt; 🌻 ~ | &apos;2022&apos; |  </code>   
+ &gt;&gt;&gt; 🌻 ~ | '\'2022'\' |  </code>   
   </pre>
   <p>
     では束縛した値がきちんと定義できたかみてみましょう。値の中身を見るには
@@ -117,14 +114,14 @@
   <pre>
     <code> &gt;&gt;&gt; 📝 ( 🌷 + 11 ) 
  2033
- &gt;&gt;&gt; 📝 ( 🌻 + &apos;年度&apos; ) 
+ &gt;&gt;&gt; 📝 ( 🌻 + '\'年度'\' ) 
  2022年度</code>
   </pre>
   <p>
     逆を行うと、エラーになります。
   </p>
   <pre>
-    <code> &gt;&gt;&gt; 📝 ( 🌷 + &apos;年度&apos; )
+    <code> &gt;&gt;&gt; 📝 ( 🌷 + '\'年度'\' )
  id '年度'' is not defined.
  &gt;&gt;&gt; 📝 ( 🌻 + 11 )    
  syntax error at 1: nearby "11" </code>
@@ -148,6 +145,17 @@
  &gt;&gt;&gt; 📝 ( 🎁 + 🌷 )
  2023 </code>
   </pre>
+  <p>
+    文字列にシングルクォートを入れたい場合は以下のようにエスケープを行なってください。
+  </p>
+  <pre>
+    <code> &gt;&gt;&gt; 🐬 ~ | '\'美しい\'\'日本の海\'\''\' | 
+ &gt;&gt;&gt; 📝 ( 🐬 )
+ 美しい'\'日本の海'\'</code>
+  </pre>
+  <p>
+    変数名には絵文字の他にも日本語や英語など様々な文字を指定できます。<br>それでは楽しい( ' 8 '*)との時間をお過ごしください！
+  </p>
 
   <div class="belt">
     <h3><a name="metrics">メトリクス</a></h3>
@@ -179,7 +187,7 @@
   </table>
 
   <hr>
-  <div class="right-small">Copyright 2022 Project Hiyo, Updated: 2022/01/30 (Created: 2022/01/29) Created by Yuri Okamoto</div>
+  <div class="right-small">Copyright 2022 Project Hiyo, Updated: 2022/01/31 (Created: 2022/01/29) Created by Yuri Okamoto</div>
 </body>
 
 </html>
