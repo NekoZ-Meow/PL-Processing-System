@@ -5,13 +5,19 @@ Statements ::= StatementNewline
 
 StatementNewline ::= Statement
 | Newlines Statement
-| StatementNewline Statement
 
 Statement ::= Assign Newlines
+| Method Newlines
 
 Assign ::= Variable TILDE VERTICAL Expression VERTICAL
 
-Expression ::= Expression OPERATOR Term
+Method ::= Print
+
+Print ::= PRINT "(" Expression ")"
+
+Expression ::= Expression "+" Term
+| Expression "-" Term
+|Term
 
 Term::=Factor
 
@@ -20,15 +26,17 @@ Factor::=Variable
 |"(" Expression ")"
 
 Variable ::= ID
-Constant::= INTEGER | FLOAT
+Constant::= INTEGER | FLOAT | STRINGS
 
 Newlines::=NEWLINE
 |Newlines NEWLINE
 
+PRINT ::= "📝"
 TILDE ::= "~"
 VERTICAL ::= "|"
 OPERATOR ::= "+"|"-"
 INTEGER ::= [0-9]+
+STRINGS::= "'" ([^']|"\'")* "'"
 FLOAT ::= [0-9]+ "." [0-9]+
 NEWLINE ::= "\r" | "\r\n" | "\n"
 ID ::= [^\t \n\r~|()+-]+
