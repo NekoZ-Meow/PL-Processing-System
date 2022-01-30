@@ -8,17 +8,23 @@ PACKAGE	= hiyo
 PKGPATH	= $(shell echo $(PACKAGE) | sed -e 's/\./\//g')
 PKGTDIR	= $(shell echo $(PACKAGE) | cut -d '.' -f1)
 WORKDIR	= ./
-SOURCE_DIR = test_txt/
+TEST_SOURCE_DIR = test_txt/
+TEST_VM_DIR = test_tree/
 PYLINT	= pylint
 LINTRCF	= pylintrc.txt
 LINTRST	= pylintresult.txt
+APP = Hiyo.app
+INSTDIR = $(APP)/Contents/Resources/Python/
 ARGS	=
 
-PARSER_DIR = $(PACKAGE)/parser
+PARSER_DIR = $(WORKDIR)/parser/
+PARSER_INST_DIR = $(PACKAGE)/parser/
 
 
 all:clean
 	(cd $(PARSER_DIR); make all)
+	mkdir -p $(PARSER_INST_DIR)
+	(cp $(PARSER_DIR)tree  $(PARSER_INST_DIR))
 
 clean:
 	(cd $(PARSER_DIR); make clean)
@@ -32,9 +38,12 @@ test: all
 	$(PYTHON) $(TARGET) ${ARGS}
 
 test-files:all
-	@for each in $(SOURCE_DIR)*.txt;do echo "------$$each------"; $(PYTHON) $(TARGET) $$each;done
+	@for each in $(TEST_SOURCE_DIR)*.txt;do echo "------$$each------"; $(PYTHON) $(TARGET) $$each;done
 
 install:all
+	@if [ ! -e $(INSTDIR) ] ; then echo "mkdir $(INSTDIR)" ; mkdir $(INSTDIR) ; fi
+	cp -p -r $(TARGET) $(PKGTDIR) $(INSTDIR)
+	xattr -cr $(APP)
 
 lint:
 	@if [ ! -e $(LINTRCF) ] ; then $(PYLINT) --generate-rcfile > $(LINTRCF) 2> /dev/null ; fi
