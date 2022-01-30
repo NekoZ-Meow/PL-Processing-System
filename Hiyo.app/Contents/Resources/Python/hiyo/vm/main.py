@@ -2,8 +2,11 @@
 # -*- coding: utf-8 -*-
 
 '''
-木構造を表示する
+木構造を実行する
 '''
+
+__author__ = 'Okayama Kodai'
+__version__ = '1.0.0'
 
 import sys
 

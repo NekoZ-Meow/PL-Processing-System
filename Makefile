@@ -49,6 +49,12 @@ lint:
 	@if [ ! -e $(LINTRCF) ] ; then $(PYLINT) --generate-rcfile > $(LINTRCF) 2> /dev/null ; fi
 	$(PYLINT) --rcfile=$(LINTRCF) --extension-pkg-whitelist=lark-parser ./$(TARGET) `find ./$(PKGPATH) -name "*.py" -not -name "__init__.py"` > $(LINTRST) ; less $(LINTRST)
 
+doc:
+	$(PYDOC) ./$(TARGET) ./$(PKGPATH)/$(MODULE)
+
+pydoc:
+	(sleep 3 ; open http://localhost:9999/$(PACKAGE).html) & $(PYDOC) -p 9999
+
 # 
 # pip is the PyPA recommended tool for installing Python packages.
 # 
