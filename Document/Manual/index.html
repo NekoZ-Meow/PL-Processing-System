@@ -63,11 +63,93 @@
   <img src="../../bnf/diagrams/('8'*)-bnf.png" alt="構文図式" width="700">
 
   <div class="belt">
-    <h3><a name="dounyuu">導入方法</a></h3>
+    <h3><a name="InstallationMethod">導入方法</a></h3>
   </div>
   <p>
-    make系の動作手順 
+    この言語のソースコード一式は<a href="https://github.com/NekoZ-Meow/PL-Processing-System">Github PL-Processing-System</a>にあります。<br>
+    上記よりすべてクローンしてきた状態で以下の作業を進めます。ダウンロードしてきたディレクトリPL-Processing-Systemへ移動し、カレントディレクトリを以下の状態にします。
   </p>
+  <pre>
+    <code> $ pwd ~/Downloads/PL-Processing-System </code>
+  </pre>
+  <p>
+    なお、ディレクトリの位置は~/Downloadsではなくても好きな場所に置くことができます。次に中身を確認します。
+  </p>
+  <pre>
+    <code> $ls -1
+ Document
+ Hiyo.app
+ Makefile
+ README.md
+ bnf
+ hiyo
+ hiyo-vm-design.asta 
+ main.py
+ parser
+ pylintrc.txt
+ report
+ test_txt</code>
+  </pre>
+  <p>
+    拡張属性を落とします。
+  </p>
+  <pre>
+    <code> xattr -cr ./ </code>
+  </pre>
+  <p>
+    ここからはmakeコマンドを使ってアプリケーションの準備を行います。
+  </p>
+  <pre>
+    <code> make prepare</code>
+  </pre>
+  <p>と打って、</p>
+  <pre>
+    <code> command not found: make </code>
+  </pre>
+  <p> と出力される場合は、Command line tools for Xcode をインストールします。このインストールにはかなりの時間がかかる可能性があります。</p>
+  <pre>
+    <code> $ xcode-select --install </code>
+  </pre>
+  <p>
+    以下のコマンドを打ち込み、以下の結果が返ればmakeコマンドが正しくインストールされています。
+  </p>
+  <pre>
+    <code> $ which make 
+ /usr/bin/make </code>
+  </pre>
+  <p> インストールができている場合は上記の</p>
+  <pre>
+    <code> make prepare</code>
+  </pre>
+  <p>
+    を実行してください。
+  </p>
+  <p>
+    この言語を使用するために必要なものがインストールされます。次に、アプリケーションをインストールさせます。
+  </p>
+  <pre>
+    <code> make install </code>
+  </pre>
+  <p> これでアプリケーションが使用できるようになります。アイコンをダブルクリックするか、</p>
+  <pre>
+    <code> make open </code>
+  </pre>
+  <p>
+    で開くことができます。アプリケーションからではなく、ターミナル上でそのまま実行する際は、
+  </p>
+  <pre>
+    <code> make test </code>
+  </pre>
+  <p>
+    と打ち込んでください。いずれも以下のようにターミナルにプロンプタが表示されます。
+  </p>
+  <img src="images/terminal_start.png"alt="起動画面" width="600">
+  <p> 
+    各自のターミナルの設定によりターミナルのデザインが異なりますが、画像のような文字列が表示されれば正しく動いています。<br>
+    &gt;&gt;&gt; の後にプログラムを入力していきます。<br>
+    終了させるには Controlキーとdキーを同時に押して終了させます。
+  </p>
+  <img src="images/terminal_logout.png"alt="終了画面" width="600">
 
   <div class="belt">
     <h3><a name="kaitemiru">書いてみよう</a></h3>
