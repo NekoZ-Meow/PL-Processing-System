@@ -29,7 +29,7 @@
       <li><a href="../DevelopmentPlan/index.html">開発計画書</a></li>
       <li><a href="../BasicDesign/index.html">基本設計書</a></li>
       <li><a href="../DetailDesign/index.html">詳細設計書</a></li>
-      <li><a href="../Test/index.html">テスト</a></li>
+      <li><a href="../Test/index.html" class="current">テスト</a></li>
       <li><a href="../DevelopmentResult/index.html">開発実績</a></li>
       <li><a href="../Program/index.html">プログラム</a></li>
       <li><a href="../Manual/index.html">マニュアル</a></li>
@@ -37,81 +37,288 @@
   </div>
   <hr>
   <h2>プログラミング言語「言語処理系の開発」テスト結果報告書</h2>
+
+  <div class="belt">
+    <h3><a name="index">目次</a></h3>
+  </div>
+  <ul>
+    <li><a href="#TestCase">テストケースとその結果</a></li>
+    <li><a href="#ParserTest">parser</a></li>
+    <li><a href="#VirtualTest">仮想マシンのリント</a></li>
+    <li><a href="#DocumentTest">ドキュメントテスト</a></li>
+  </ul>
   
   <div class="belt">
     <h3><a name="TestCase">テストケースとその結果</a></h3>
   </div>
-  <ul>
-    <li>
-      <table border="1" summary="table">
-        <tr>
-          <th class="left-padding" abbr="1">テストケース</th>
-          <th class="left-padding" abbr="2">望まれる動作</th>
-          <th class="left-padding" abbr="3">結果</th>
-        </tr>
-        <tr>
-          <td class="left-padding">最後に改行が含まれていない</td>
-          <td class="left-padding">最後に改行を自動で含ませる</td>
-          <td class="left-padding">正常動作</td>
-        </tr>
-        <tr>
-          <td class="left-padding">インデントが揃っていない</td>
-          <td class="left-padding">インデント関係なしで正常動作</td>
-          <td class="left-padding">Non</td>
-        </tr>
-        <tr>
-          <td class="left-padding">意味のない改行が大量に含まれる</td>
-          <td class="left-padding">改行の量関係なしに正常動作</td>
-          <td class="left-padding">Non</td>
-        </tr>
-        <tr>
-          <td class="left-padding">スペースがなく詰めて記述されている</td>
-          <td class="left-padding">スペースがなくても正常動作</td>
-          <td class="left-padding">Non</td>
-        </tr> 
-        <tr>
-          <td class="left-padding">プリント関数に変数が渡された</td>
-          <td class="left-padding">変数の中身を出力する</td>
-          <td class="left-padding">Non</td>
-        </tr>
-        <tr>
-          <td class="left-padding">プリント関数に' 'で囲まれた文字列が渡された</td>
-          <td class="left-padding">　' ' の中身を出力する</td>
-          <td class="left-padding">Non</td>
-        </tr>
-        <tr>
-          <td class="left-padding">プリント関数に ' \' ' が渡された</td>
-          <td class="left-padding">　' を出力する(エスケープ可能か)</td>
-          <td class="left-padding">Non</td>
-        </tr>
-        <tr>
-          <td class="left-padding">文字列+文字列の定義がされた</td>
-          <td class="left-padding">文字列の結合を行う</td>
-          <td class="left-padding">Non</td>
-        </tr>
-        <tr>
-          <td class="left-padding">プリント関数に「文字列+文字列」が渡された</td>
-          <td class="left-padding">文字列を結合して出力する</td>
-          <td class="left-padding">Non</td>
-        </tr>
-        <tr>
-          <td class="left-padding">プリント関数に「文字列が束縛された変数+文字列」が渡された</td>
-          <td class="left-padding">文字列を結合して出力する</td>
-          <td class="left-padding">Non</td>
-        </tr>
-        <tr>
-          <td class="left-padding">1行でいくつも定義を行う</td>
-          <td class="left-padding">文法エラーになる</td>
-          <td class="left-padding">Non</td>
-        </tr>
-        <tr>
-          <td class="left-padding">定義されていない変数を出力する</td>
-          <td class="left-padding">undefinedになる</td>
-          <td class="left-padding">Non</td>
-        </tr>
-      </table>
-    </li>
-  </ul>
+  <p>
+    考えられる入力に対して適切な動作を行うことができるか以下の項目をテストした。
+    このテストを行うにあたって作成したテストケースのソースコード一式はPL-Processing-System/test_txtにある。<br>
+    テストの実行は
+  </p>
+  <pre>
+    <code> $ cd PL-Processing-System 
+ $ make test_files</code>
+  </pre>
+  <p> 
+    で、すべてのケースに対して行える。
+  </p>
+  <table border="1" summary="table">
+    <tr>
+      <th class="left-padding" abbr="1">テストケース</th>
+      <th class="left-padding" abbr="2">望まれる動作</th>
+      <th class="left-padding" abbr="3">結果</th>
+    </tr>
+    <tr>
+      <td class="left-padding">最後に改行が含まれていない</td>
+      <td class="left-padding">最後に改行を自動で含ませる</td>
+      <td class="left-padding">TestClear</td>
+    </tr>
+    <tr>
+      <td class="left-padding">インデントが揃っていない</td>
+      <td class="left-padding">インデント関係なしで正常動作</td>
+      <td class="left-padding">TestClear</td>
+    </tr>
+    <tr>
+      <td class="left-padding">意味のない改行が大量に含まれる</td>
+      <td class="left-padding">改行の量関係なしに正常動作</td>
+      <td class="left-padding">TestClear</td>
+    </tr>
+    <tr>
+      <td class="left-padding">スペースがなく詰めて記述されている</td>
+      <td class="left-padding">スペースがなくても正常動作</td>
+      <td class="left-padding">TestClear</td>
+    </tr> 
+    <tr>
+      <td class="left-padding">プリント関数に変数が渡された</td>
+      <td class="left-padding">変数の中身を出力する</td>
+      <td class="left-padding">TestClear</td>
+    </tr>
+    <tr>
+      <td class="left-padding">プリント関数に' 'で囲まれた文字列が渡された</td>
+      <td class="left-padding">　' ' の中身を出力する</td>
+      <td class="left-padding">TestClear</td>
+    </tr>
+    <tr>
+      <td class="left-padding">プリント関数に ' \' ' が渡された</td>
+      <td class="left-padding">　' を出力する(エスケープ可能か)</td>
+      <td class="left-padding">TestClear</td>
+    </tr>
+    <tr>
+      <td class="left-padding">プリント関数に ' \~ ' が渡された</td>
+      <td class="left-padding">　~ を出力する(エスケープ可能か)</td>
+      <td class="left-padding">TestClear</td>
+    </tr>
+    <tr>
+      <td class="left-padding">文字列+文字列の定義がされた</td>
+      <td class="left-padding">文字列の結合を行う</td>
+      <td class="left-padding">TestClear</td>
+    </tr>
+    <tr>
+      <td class="left-padding">プリント関数に「文字列+文字列」が渡された</td>
+      <td class="left-padding">文字列を結合して出力する</td>
+      <td class="left-padding">TestClear</td>
+    </tr>
+    <tr>
+      <td class="left-padding">プリント関数に「文字列が束縛された変数+文字列」が渡された</td>
+      <td class="left-padding">文字列を結合して出力する</td>
+      <td class="left-padding">TestClear</td>
+    </tr>
+    <tr>
+      <td class="left-padding">1行でいくつも定義を行う</td>
+      <td class="left-padding">文法エラーになる</td>
+      <td class="left-padding">TestClear</td>
+    </tr>
+    <tr>
+      <td class="left-padding">定義されていない変数を出力する</td>
+      <td class="left-padding"> not defined になる</td>
+      <td class="left-padding">TestClear</td>
+    </tr>
+    <tr>
+      <td class="left-padding">文字列と数値を加算しようとする</td>
+      <td class="left-padding">can only concatenate str (not "int") to str</td>
+      <td class="left-padding">TestClear</td>
+    </tr>
+  </table>
+
+
+  <div class="belt">
+  <h3><a name="ParserTest">parser</a></h3>
+  </div>
+  <p>
+    以下を実行し、正しく木構造が出力されることを確認した。この時木構造に変換されているソースコードはsrc.txtである。
+  </p>
+  <pre>
+    <code> $ cd PL-Processing-System/parser
+ $ make test </code>
+  </pre>
+  <p> 
+    実行結果 
+  </p>
+  <pre>
+    <code>
+  ./tree &lt; src.txt &gt; tmp.txt
+
+  parser successfully ended
+
+  cat tmp.txt
+
+      node(= 
+          cons(
+              leaf(ID 🍀)
+              leaf(INTEGER 123)))
+
+      node(= 
+          cons(
+              leaf(ID 🐳)
+              node(+ 
+                  cons(
+                      leaf(INTEGER 3)
+                      leaf(REAL 4.3)))))
+
+      node(= 
+          cons(
+              leaf(ID 🐝)
+              node(- 
+                  cons(
+                      node(+ 
+                          cons(
+                              leaf(ID 🍀)
+                              leaf(INTEGER 3))) 
+                      leaf(INTEGER 2)))))
+
+      node(= 
+          cons(
+              leaf(ID あああああ)
+              node(+ 
+                  cons(
+                      node(+ 
+                          cons(
+                              leaf(ID 🐳)
+                              leaf(ID 🐝)))
+                      leaf(INTEGER 5)))))
+
+      node(Print 
+          leaf(INTEGER 123))
+
+      node(Print 
+          leaf(STRINGS &#039;あいう&#039;))
+      </code>
+  </pre>
+
+  <div class="belt">
+  <h3><a name="VirtualTest">仮想マシンのリント</a></h3>
+  </div>
+  <p>
+    以下を実行し、仮想マシンを実装したpythonプログラムのリントが満点であることを確認した。
+  </p>
+  <pre>
+    <code> $ cd PL-Processing-System 
+ $ make lint </code>
+  </pre>
+  <p> 
+    実行結果 
+  </p>
+  <pre>
+    <code> 
+
+  Report
+  ======
+  183 statements analysed.
+
+  Statistics by type
+  ------------------
+
+  +---------+-------+-----------+-----------+------------+---------+
+  |type     |number |old number |difference |%documented |%badname |
+  +=========+=======+===========+===========+============+=========+
+  |module   |6      |NC         |NC         |100.00      |0.00     |
+  +---------+-------+-----------+-----------+------------+---------+
+  |class    |4      |NC         |NC         |100.00      |0.00     |
+  +---------+-------+-----------+-----------+------------+---------+
+  |method   |29     |NC         |NC         |100.00      |0.00     |
+  +---------+-------+-----------+-----------+------------+---------+
+  |function |4      |NC         |NC         |100.00      |0.00     |
+  +---------+-------+-----------+-----------+------------+---------+
+
+
+
+  External dependencies
+  ---------------------
+  ::
+
+      hiyo 
+        \-source_to_tree (main)
+        \-vm 
+          \-hiyo_vm 
+            \-executer (main)
+      lark (hiyo.vm.hiyo_vm.tree_transformer)
+        \-Lark (hiyo.vm.hiyo_vm.executer)
+        \-exceptions (main)
+
+
+
+  Raw metrics
+  -----------
+
+  +----------+-------+------+---------+-----------+
+  |type      |number |%     |previous |difference |
+  +==========+=======+======+=========+===========+
+  |code      |200    |36.10 |NC       |NC         |
+  +----------+-------+------+---------+-----------+
+  |docstring |243    |43.86 |NC       |NC         |
+  +----------+-------+------+---------+-----------+
+  |comment   |15     |2.71  |NC       |NC         |
+  +----------+-------+------+---------+-----------+
+  |empty     |96     |17.33 |NC       |NC         |
+  +----------+-------+------+---------+-----------+
+
+
+
+  Duplication
+  -----------
+
+  +-------------------------+------+---------+-----------+
+  |                         |now   |previous |difference |
+  +=========================+======+=========+===========+
+  |nb duplicated lines      |0     |NC       |NC         |
+  +-------------------------+------+---------+-----------+
+  |percent duplicated lines |0.000 |NC       |NC         |
+  +-------------------------+------+---------+-----------+
+
+
+
+  Messages by category
+  --------------------
+
+  +-----------+-------+---------+-----------+
+  |type       |number |previous |difference |
+  +===========+=======+=========+===========+
+  |convention |0      |NC       |NC         |
+  +-----------+-------+---------+-----------+
+  |refactor   |0      |NC       |NC         |
+  +-----------+-------+---------+-----------+
+  |warning    |0      |NC       |NC         |
+  +-----------+-------+---------+-----------+
+  |error      |0      |NC       |NC         |
+  +-----------+-------+---------+-----------+
+
+
+
+  Messages
+  --------
+
+  +-----------+------------+
+  |message id |occurrences |
+  +===========+============+
+
+
+
+
+  ------------------------------------
+  Your code has been rated at 10.00/10
+    </code>
+  </pre>
 
   <div class="belt">
   <h3><a name="DocumentTest">ドキュメントテスト</a></h3>
@@ -122,7 +329,12 @@
       <ul>
         <li>base_style.css</li>
       </ul>
+      <p>
+      <a href="http://jigsaw.w3.org/css-validator/check/referer">
+        <img src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="正当なCSSです!"></a>
+    </p>
     </li>
+    
     <li>HTMLのテスト
       <p>以下のファイルを<a href="http://www.htmllint.net/html-lint/htmllint.html">Another HTML Lint -
           Gateway</a>に掛け、エラーがないことを確認した。</p>
@@ -135,13 +347,12 @@
         <li>Manual/index.html</li>
         <li>Program/index.html</li>
         <li>Requirement/index.html</li>
-        <li>TestResult/index.html</li>
-        <li>TestSpecification/index.html</li>
+        <li>Test/index.html</li>
       </ul>
     </li>  
   </ul>
   <hr>
-  <div class="right-small">Copyright 2022 Project Hiyo, Updated: 2022/01/30 (Created: 2022/01/29) Created by Yuri Okamoto</div>
+  <div class="right-small">Copyright 2022 Project Hiyo, Updated: 2022/01/31 (Created: 2022/01/29) Created by Yuri Okamoto</div>
 </body>
 
 </html>
