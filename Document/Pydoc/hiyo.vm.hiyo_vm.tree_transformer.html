@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+
+<head>
+  <title>Pydoc: module hiyo.vm.hiyo_vm.tree_transformer</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" type="text/css" href="./css/_pydoc.css">
+</head>
+
+<body bgcolor="#f0f0f8">
+  <div style='float:left'>
+    Python 3.9.9 [main, Clang 13.0.0 (clang-1300.0.29.3)]<br>macOS-12.1
+  </div>
+  <div style='float:right'>
+    <div style='text-align:center'>
+      <a href="index.html">Module Index</a>
+      : <a href="topics.html">Topics</a>
+      : <a href="keywords.html">Keywords</a>
+    </div>
+    <div>
+      <form action="get" style='display:inline;'>
+        <input type=text name=key size=15>
+        <input type=submit value="Get">
+      </form>&nbsp;
+      <form action="search" style='display:inline;'>
+        <input type=text name=key size=15>
+        <input type=submit value="Search">
+      </form>
+    </div>
+  </div>
+  <div style="clear:both;padding-top:.5em;">
+    <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+      <tr bgcolor="#7799ee">
+        <td valign=bottom>&nbsp;<br>
+          <font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="hiyo.html">
+                    <font color="#ffffff">hiyo</font>
+                  </a>.<a href="hiyo.vm.html">
+                    <font color="#ffffff">vm</font>
+                  </a>.<a href="hiyo.vm.hiyo_vm.html">
+                    <font color="#ffffff">hiyo_vm</font>
+                  </a>.tree_transformer</strong></big></big> (version 1.0.0)</font>
+        </td>
+        <td align=right valign=bottom>
+          <font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a
+              href="file:/Users/libra/workspace/github/PL-Processing-System/hiyo/vm/hiyo_vm/tree_transformer.py">/Users/libra/workspace/github/PL-Processing-System/hiyo/vm/hiyo_vm/tree_transformer.py</a>
+          </font>
+        </td>
+      </tr>
+    </table>
+    <p><tt>意味解析で行う処理群を記述したクラス</tt></p>
+    <p>
+    <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+      <tr bgcolor="#ee77aa">
+        <td colspan=3 valign=bottom>&nbsp;<br>
+          <font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font>
+        </td>
+      </tr>
+
+      <tr>
+        <td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td>
+        <td>&nbsp;</td>
+        <td width="100%">
+          <dl>
+            <dt>
+              <font face="helvetica, arial"><a href="lark.visitors.html#Transformer">lark.visitors.Transformer</a>(<a
+                  href="lark.visitors.html#_Decoratable">lark.visitors._Decoratable</a>)
+              </font>
+            </dt>
+            <dd>
+              <dl>
+                <dt>
+                  <font face="helvetica, arial"><a
+                      href="hiyo.vm.hiyo_vm.tree_transformer.html#TreeTransformer">TreeTransformer</a>
+                  </font>
+                </dt>
+              </dl>
+            </dd>
+          </dl>
+          <p>
+          <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+            <tr bgcolor="#ffc8d8">
+              <td colspan=3 valign=bottom>&nbsp;<br>
+                <font color="#000000" face="helvetica, arial"><a name="TreeTransformer">class
+                    <strong>TreeTransformer</strong></a>(<a
+                    href="lark.visitors.html#Transformer">lark.visitors.Transformer</a>)</font>
+              </td>
+            </tr>
+
+            <tr bgcolor="#ffc8d8">
+              <td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+              <td colspan=2><tt><a
+                    href="#TreeTransformer">TreeTransformer</a>(visit_tokens:&nbsp;bool&nbsp;=&nbsp;True)&nbsp;-&amp;gt;&nbsp;None<br>
+                  &nbsp;<br>
+                  Larkで意味解析を行うためのクラス<br>&nbsp;</tt></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td width="100%">
+                <dl>
+                  <dt>Method resolution order:</dt>
+                  <dd><a href="hiyo.vm.hiyo_vm.tree_transformer.html#TreeTransformer">TreeTransformer</a></dd>
+                  <dd><a href="lark.visitors.html#Transformer">lark.visitors.Transformer</a></dd>
+                  <dd><a href="lark.visitors.html#_Decoratable">lark.visitors._Decoratable</a></dd>
+                  <dd><a href="builtins.html#object">builtins.object</a></dd>
+                </dl>
+                <hr>
+                Methods defined here:<br>
+                <dl>
+                  <dt><a name="TreeTransformer-__init__"><strong>__init__</strong></a>(self, visit_tokens: bool = True)
+                    -&gt; None</dt>
+                  <dd><tt>初期化処理</tt></dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="TreeTransformer-assign"><strong>assign</strong></a>(self, *tokens)</dt>
+                  <dd><tt>assign&nbsp;=&nbsp;"="</tt></dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="TreeTransformer-assignment"><strong>assignment</strong></a>(self, *tokens)</dt>
+                  <dd>
+                    <tt>node&nbsp;:&nbsp;"node"&nbsp;"("&nbsp;assign&nbsp;cons&nbsp;")"&nbsp;-&gt;&nbsp;assignment</tt>
+                  </dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="TreeTransformer-cons"><strong>cons</strong></a>(self, *tokens)</dt>
+                  <dd><tt>cons&nbsp;:&nbsp;"cons"&nbsp;"("&nbsp;(node|leaf)&nbsp;(node|leaf)&nbsp;")"</tt></dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="TreeTransformer-constant"><strong>constant</strong></a>(self, *tokens)</dt>
+                  <dd><tt>constant&nbsp;:&nbsp;"INTEGER"|"REAL"|"STRINGS"</tt></dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="TreeTransformer-create_constant"><strong>create_constant</strong></a>(self, *tokens)</dt>
+                  <dd>
+                    <tt>leaf&nbsp;:&nbsp;"leaf"&nbsp;"("&nbsp;constant&nbsp;(integer|float)&nbsp;")"&nbsp;-&gt;&nbsp;create_constant</tt>
+                  </dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="TreeTransformer-create_id"><strong>create_id</strong></a>(self, *tokens)</dt>
+                  <dd>
+                    <tt>leaf&nbsp;:&nbsp;"leaf"&nbsp;"("&nbsp;variable&nbsp;identifier&nbsp;")"&nbsp;-&gt;&nbsp;create_id</tt>
+                  </dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="TreeTransformer-float"><strong>float</strong></a>(self, *tokens)</dt>
+                  <dd><tt>float&nbsp;:&nbsp;/[0-9]*.[0-9]+/</tt></dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="TreeTransformer-identifier"><strong>identifier</strong></a>(self, *tokens)</dt>
+                  <dd><tt>identifier&nbsp;:&nbsp;/[a-zA-Z_][a-zA-Z0-9_]*/</tt></dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="TreeTransformer-integer"><strong>integer</strong></a>(self, *tokens)</dt>
+                  <dd><tt>integer&nbsp;:&nbsp;/[0-9]+[0-9]*/</tt></dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="TreeTransformer-operation"><strong>operation</strong></a>(self, *tokens)</dt>
+                  <dd>
+                    <tt>node&nbsp;:&nbsp;"node"&nbsp;"("&nbsp;operator&nbsp;cons&nbsp;")"&nbsp;-&gt;&nbsp;operation</tt>
+                  </dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="TreeTransformer-operator"><strong>operator</strong></a>(self, *tokens)</dt>
+                  <dd><tt>operator&nbsp;:&nbsp;"+"|"-"|"*"|"/"</tt></dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="TreeTransformer-print"><strong>print</strong></a>(self, *tokens)</dt>
+                  <dd>
+                    <tt>node&nbsp;:&nbsp;"node"&nbsp;"("&nbsp;"Print"&nbsp;(node|leaf)&nbsp;")"&nbsp;-&gt;&nbsp;print</tt>
+                  </dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="TreeTransformer-string"><strong>string</strong></a>(self, *tokens)</dt>
+                  <dd><tt>string:&nbsp;/'.*'/</tt></dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="TreeTransformer-tree"><strong>tree</strong></a>(self, *tokens)</dt>
+                  <dd><tt>tree&nbsp;:&nbsp;node<br>
+                      |&nbsp;cons<br>
+                      |&nbsp;leaf</tt></dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="TreeTransformer-trees"><strong>trees</strong></a>(self, *tokens)</dt>
+                  <dd><tt>trees&nbsp;:&nbsp;tree+</tt></dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="TreeTransformer-variable"><strong>variable</strong></a>(self, *tokens)</dt>
+                  <dd><tt>variable&nbsp;:&nbsp;"ID"</tt></dd>
+                </dl>
+
+                <hr>
+                Methods inherited from <a href="lark.visitors.html#Transformer">lark.visitors.Transformer</a>:<br>
+                <dl>
+                  <dt><a name="TreeTransformer-__default__"><strong>__default__</strong></a>(self, data, children, meta)
+                  </dt>
+                  <dd><tt>Default&nbsp;function&nbsp;that&nbsp;is&nbsp;called&nbsp;if&nbsp;there&nbsp;is&nbsp;no&nbsp;attribute&nbsp;matching&nbsp;``data``<br>
+                      &nbsp;<br>
+                      Can&nbsp;be&nbsp;overridden.&nbsp;Defaults&nbsp;to&nbsp;creating&nbsp;a&nbsp;new&nbsp;copy&nbsp;of&nbsp;the&nbsp;tree&nbsp;node&nbsp;(i.e.&nbsp;``return&nbsp;Tree(data,&nbsp;children,&nbsp;meta)``)</tt>
+                  </dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="TreeTransformer-__default_token__"><strong>__default_token__</strong></a>(self, token)
+                  </dt>
+                  <dd><tt>Default&nbsp;function&nbsp;that&nbsp;is&nbsp;called&nbsp;if&nbsp;there&nbsp;is&nbsp;no&nbsp;attribute&nbsp;matching&nbsp;``token.type``<br>
+                      &nbsp;<br>
+                      Can&nbsp;be&nbsp;overridden.&nbsp;Defaults&nbsp;to&nbsp;returning&nbsp;the&nbsp;token&nbsp;as-is.</tt>
+                  </dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="TreeTransformer-__mul__"><strong>__mul__</strong></a>(self, other)</dt>
+                  <dd>
+                    <tt>Chain&nbsp;two&nbsp;transformers&nbsp;together,&nbsp;returning&nbsp;a&nbsp;new&nbsp;transformer.</tt>
+                  </dd>
+                </dl>
+
+                <dl>
+                  <dt><a name="TreeTransformer-transform"><strong>transform</strong></a>(self, tree)</dt>
+                  <dd>
+                    <tt>Transform&nbsp;the&nbsp;given&nbsp;tree,&nbsp;and&nbsp;return&nbsp;the&nbsp;final&nbsp;result</tt>
+                  </dd>
+                </dl>
+
+                <hr>
+                Data and other attributes inherited from <a
+                  href="lark.visitors.html#Transformer">lark.visitors.Transformer</a>:<br>
+                <dl>
+                  <dt><strong>__visit_tokens__</strong> = True
+                </dl>
+
+                <hr>
+                Class methods inherited from <a
+                  href="lark.visitors.html#_Decoratable">lark.visitors._Decoratable</a>:<br>
+                <dl>
+                  <dt><a name="TreeTransformer-__class_getitem__"><strong>__class_getitem__</strong></a>(_)<font
+                      color="#909090">
+                      <font face="helvetica, arial"> from <a href="builtins.html#type">builtins.type</a></font>
+                    </font>
+                  </dt>
+                </dl>
+
+                <hr>
+                Data descriptors inherited from <a
+                  href="lark.visitors.html#_Decoratable">lark.visitors._Decoratable</a>:<br>
+                <dl>
+                  <dt><strong>__dict__</strong></dt>
+                  <dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+                </dl>
+                <dl>
+                  <dt><strong>__weakref__</strong></dt>
+                  <dd>
+                    <tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt>
+                  </dd>
+                </dl>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <p>
+    <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+      <tr bgcolor="#7799ee">
+        <td colspan=3 valign=bottom>&nbsp;<br>
+          <font color="#ffffff" face="helvetica, arial"><big><strong>Author</strong></big></font>
+        </td>
+      </tr>
+
+      <tr>
+        <td bgcolor="#7799ee"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td>
+        <td>&nbsp;</td>
+        <td width="100%">Okayama&nbsp;Kodai</td>
+      </tr>
+    </table>
+  </div>
+</body>
+
+</html>
