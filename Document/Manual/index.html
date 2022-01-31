@@ -42,12 +42,42 @@
   </div>
   <hr>
   <h2>プログラミング言語「言語処理系の開発」マニュアル</h2>
+  <div class="belt">
+    <h3><a name="index">目次</a></h3>
+  </div>
+  <ul>
+    <li><a href="#OperatingEnvironment">動作可能環境</a></li>
+    <li><a href="#LanguageSpecifications">言語仕様</a></li>
+    <li><a href="#InstallationMethod">導入方法</a></li>
+    <li><a href="#try">書いてみよう</a></li>
+    <li><a href="#metrics">メトリクス</a></li>
+  </ul>
 
   <div class="belt">
-    <h3><a name="usrmanual">動作可能環境</a></h3>
+    <h3><a name="OperatingEnvironment">動作可能環境</a></h3>
   </div>
   <p>
-    AppleシリコンでもうごくよとかPythonいる？とかant系？？？ 
+    この言語を動作させるためには以下の環境が必要です。
+  </p>
+  <ol>
+    <li>Apple Macintosh シリーズ</li>
+    <li>Python 3.8以上</li>
+  </ol>
+  <p>
+    intelプロセッサ、Appleシリコンどちらでも動作可能です。
+  </p>
+  <pre>
+    <code> $ arch ; uname -m 
+ arm64
+ arm64</code>
+  </pre>
+  <pre>
+    <code> $ arch ; uname -m 
+ i386
+ x86_64</code>
+  </pre>
+  <p>
+    また、macOS Monterey で作成されています。
   </p>
 
   <div class="belt">
@@ -56,7 +86,7 @@
   <p>
     ( ' 8 '*)のEBNFと構文図式は以下の通りです。 
   </p>
-  <a href="../../bnf/diagrams/diagram.xhtml">EBNFと構文図式</a>
+  <a href="../../bnf/diagrams/diagram.xhtml">EBNFと構文図式(別のページへ)</a>
   <p>
     構文図式のみの画像は以下の通りです。
   </p>
@@ -152,7 +182,7 @@
   <img src="images/terminal_logout.png" alt="終了画面" width="600">
 
   <div class="belt">
-    <h3><a name="kaitemiru">書いてみよう</a></h3>
+    <h3><a name="try">書いてみよう</a></h3>
   </div>
   <p>
     アプリケーションを起動できたら実際に書いてみましょう。<br>
