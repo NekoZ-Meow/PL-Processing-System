@@ -37,6 +37,9 @@ clean:
 test: all
 	$(PYTHON) $(TARGET) ${ARGS}
 
+open:install
+	open $(APP)
+
 test-files:all
 	@for each in $(TEST_SOURCE_DIR)*.txt;do echo "------$$each------"; $(PYTHON) $(TARGET) $$each;done
 

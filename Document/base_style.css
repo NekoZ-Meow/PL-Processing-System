@@ -258,8 +258,8 @@ th {
 
 code {
     display: inline-block;
-    color: #444; /* 文字色 */
-    background-color: #e7edf3; /* 背景色 */
+    color: rgb(255, 255, 255); /* 文字色 */
+    background-color: #3f3f3f; /* 背景色 */
     border-radius: 4px; /* 角丸 */
     border: solid 1px #d6dde4; /* 枠線 */
 }
