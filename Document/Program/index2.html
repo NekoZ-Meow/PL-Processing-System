@@ -1,0 +1,396 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+  <meta name="keywords" content="Aoki,Atsushi,Program,Programmer,Object,Programming,SNF,yacc,lex">
+  <meta name="description" content="PL長期課題2のホームページ">
+  <meta name="author" content="Okomoto Yuri">
+  <link rev="made" href="index.html">
+  <link rel="index" href="index.html">
+  <link rel="icon" href="../icon/favicon.ico" id="favicon">
+  <link rel="stylesheet" href="../base_style.css">
+  <style type="text/css">
+    <!--
+    /*ここに追加のスタイルを記述*/
+    #menu2 {
+    margin: 0px 0px 0px 0px;
+    padding: 0px;
+    height: 32px;
+    }
+
+    #menu2 ul {
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+        text-align: center;
+        clear: both;
+    }
+
+    #menu2 li {
+        margin: 0px 5px 0px 0px;
+        padding: 0px;
+        float: left;
+    }
+
+    #menu2 a {
+        display: block;
+        padding: 2px 4px;
+        text-decoration: none;
+        margin: 0px;
+        font-weight: bold;
+        background: #fdfeb5;
+        color: #333333;
+        border: 1px solid #000000;
+    }
+
+    #menu2 a:hover {
+        display: block;
+        padding: 2px 4px;
+        border-bottom: 1px solid #000000;
+        text-decoration: none;
+        background: #bcc190;
+    }
+
+    #menu2 .current {
+        background-color: #e4b744;
+        font-weight: bold;
+        color: #FFFFFF;
+        border: 1px solid #333333;
+    }
+    -->
+  </style>
+  <title>プログラミング言語-言語処理系の開発- プログラム</title>
+</head>
+
+<body>
+  <div id="menu">
+    <ul>
+      <li><a href="../index.html">ホーム</a></li>
+      <li><a href="../Requirement/index.html">要求仕様書</a></li>
+      <li><a href="../DevelopmentPlan/index.html">開発計画書</a></li>
+      <li><a href="../BasicDesign/index.html">基本設計書</a></li>
+      <li><a href="../DetailDesign/index.html">詳細設計書</a></li>
+      <li><a href="../Test/index.html">テスト</a></li>
+      <li><a href="../DevelopmentResult/index.html">開発実績</a></li>
+      <li><a href="../Program/index.html" class="current">プログラム</a></li>
+      <li><a href="../Manual/index.html">マニュアル</a></li>
+    </ul>
+  </div>
+  <hr>
+  <h2>プログラミング言語「言語処理系の開発」プログラム</h2>
+  <div id="menu2">
+    <ul>
+      <li><a href="./index.html">仮想マシン</a></li>
+      <li><a href="./index2.html" class="current">parser</a></li>
+    </ul>
+  </div>
+  <ul>
+    <li><a href="#Def">defs.h</a></li>
+    <li><a href="#Main">main.c</a></li>
+    <li><a href="#Lex">rexp.lex</a></li>
+    <li><a href="#Yacc">syns.yac</a></li>
+    <li><a href="#Makefile">Makefile</a></li>
+  </ul>
+  <div class="belt">
+    <h3><a name="Def">defs.h</a></h3>
+  </div>
+  <pre>
+    <code>    #include &lt;stdio.h&gt;
+    #include &lt;stdlib.h&gt;
+    #include &lt;string.h&gt;
+
+    #define TRUE 1
+    #define FALSE 0
+
+    enum {CONS, NODE, LEAF}; 
+
+    typedef struct cell {
+        int          kind;
+        struct cell *head;
+        struct cell *tail;
+    } Cell;
+
+    extern char *yytext;
+    extern int linecounter;
+
+    int main(void);
+    int yylex(void);
+    void comment(void);
+    int yyparse(void);
+    void yyerror(char*);
+    Cell *cons(Cell *, Cell *);
+    Cell *node(char *, Cell *);
+    Cell *leaf(char *, char *);
+    void tree(Cell *);
+    void visit(Cell *, int);
+    </code>
+  </pre>
+
+  <div class="belt">
+    <h3><a name="Main">main.c</a></h3>
+  </div>
+  <pre>
+    <code>    #include &quot;defs.h&quot;
+
+    int main(void) {
+        linecounter = 1;
+        if (yyparse() == 0) {
+            fprintf(stderr, &quot;\nparser successfully ended\n\n&quot;); 
+        }
+        return(EXIT_SUCCESS);
+    }
+
+    Cell *cons(Cell *car, Cell *cdr) {
+        Cell *pointer;
+
+        pointer = (Cell *)malloc(sizeof(Cell));
+        pointer-&gt;kind = CONS;
+        pointer-&gt;head = car;
+        pointer-&gt;tail = cdr;
+        return(pointer);
+    }
+
+    Cell *node(char *car, Cell *cdr) {
+        Cell *pointer;
+
+        pointer = (Cell *)malloc(sizeof(Cell));
+        pointer-&gt;kind = NODE;
+        pointer-&gt;head = (Cell *)strdup(car);
+        pointer-&gt;tail = cdr;
+        return(pointer);
+    }
+
+    Cell *leaf(char *car, char *cdr) {
+        Cell *pointer;
+
+        pointer = (Cell *)malloc(sizeof(Cell));
+        pointer-&gt;kind = LEAF;
+        pointer-&gt;head = (Cell *)strdup(car);
+        pointer-&gt;tail = (Cell *)strdup(cdr);
+        return(pointer);
+    }
+
+    void tree(Cell *pointer) {
+        visit(pointer, 1);
+        printf(&quot;\n&quot;);
+    }
+
+    void visit(Cell *pointer, int level) {
+        int count;
+
+        printf(&quot;\n&quot;);
+        for (count = 0; count &lt; level; count++) {
+            printf(&quot;    &quot;);
+        }
+        if (pointer-&gt;kind == CONS) {
+            printf(&quot;cons(&quot;);
+            visit(pointer-&gt;head, level + 1);
+            visit(pointer-&gt;tail, level + 1);
+            printf(&quot;)&quot;);
+        }
+        if (pointer-&gt;kind == NODE) {
+            printf(&quot;node(&quot;);
+            printf(&quot;%s &quot;, (char *)pointer-&gt;head);
+            visit(pointer-&gt;tail, level + 1);
+            printf(&quot;)&quot;);
+        }
+        if (pointer-&gt;kind == LEAF) {
+            printf(&quot;leaf(&quot;);
+            printf(&quot;%s &quot;, (char *)pointer-&gt;head);
+            printf(&quot;%s&quot;, (char *)pointer-&gt;tail);
+            printf(&quot;)&quot;);
+        }
+        return;
+    }
+    </code>
+  </pre>
+  <div class="belt">
+    <h3><a name="Lex">rexp.lex</a></h3>
+  </div>
+  <pre>
+    <code>    %{
+    int linecounter = 1;
+    %}
+    %option nounput
+    %%
+    &quot;📝&quot; { return(PRINT); }
+    [0-9]+                                          { return(INTEGER); }
+    [0-9]*&quot;.&quot;[0-9]+                                 { return(REAL); }
+    &quot;~&quot;                                             { return(TILDE); }
+    &quot;|&quot;                                             { return(VERTICAL); }
+    &quot;+&quot;                                             { return(ADD); }
+    &quot;-&quot;                                             { return(SUBTRACT); }
+    &quot;*&quot;                                             { return(MULTIPLY); }
+    &quot;/&quot;                                             { return(DIVIDE); }
+    &quot;(&quot;                                             { return(LPAR); }
+    &quot;)&quot;                                             { return(RPAR); }
+    &quot;\n&quot;                                            { linecounter++; return(NEWLINE); } 
+    &quot;\r\n&quot;                                          { linecounter++; return(NEWLINE); } 
+    &quot;\r&quot;                                            { linecounter++; return(NEWLINE); }
+    &quot; &quot;|&quot;\t&quot;                                        { }
+    &quot;/*&quot;.*                                          { comment(); }
+    &quot;&#039;&quot;([^&#039;]|\\&#039;)*&quot;&#039;&quot; { return(STRINGS); }
+    [^\t \n\r~|\(\)\+\-]+                           { return(ID); }
+    &lt;&lt;EOF&gt;&gt; {
+        // 最後の行が改行ではなかった時のために、改行を加える
+        static int once = 0; return (once = !once) ? NEWLINE : 0;
+        }
+    %%
+    int yywrap(void) {
+        return(1);
+    }
+    void comment(void) {
+        int boolean, first, second;
+
+        boolean = TRUE;
+        first = input();
+        while (first != EOF &amp;&amp; boolean) {
+            second = input();
+            if (first == &#039;*&#039; &amp;&amp; second == &#039;/&#039;) {
+                boolean = FALSE;
+            } else if (first == &#039;\r&#039; &amp;&amp; second == &#039;\n&#039;) {
+                linecounter++;
+                first = input();
+            } else {
+                if (first == &#039;\r&#039; || first == &#039;\n&#039;) {
+                    linecounter++;
+                }
+                first = second;
+            }
+        }
+        if (first == EOF) {
+            fprintf(stderr, &quot;eof in comment\n&quot;);
+        }
+    }
+    </code>
+  </pre>
+
+  <div class="belt">
+    <h3><a name="Yacc">syns.yac</a></h3>
+  </div>
+  <pre>
+    <code>    %{
+    #include &quot;defs.h&quot;
+    #define YYSTYPE Cell *
+    %}
+    %token  ID INTEGER REAL TILDE VERTICAL NEWLINE MULTIPLY DIVIDE PRINT STRINGS
+            ADD SUBTRACT LPAR RPAR UNKNOWN;
+    %%
+
+    Program
+            : Statements                            { $$ = $1; }
+    Statements
+            : StatementNewline                             { $$ = $1; tree($$); }
+            | Statements StatementNewline                  { $$ = $2; tree($$); }
+    StatementNewline
+            : Statement                       { $$ = $1;}
+            | Newlines Statement             { $$ = $2;}
+    Statement
+            : Assign Newlines                     { $$ = $1; }
+            | Method Newlines                     { $$ = $1;}
+    Assign
+            : Variable TILDE VERTICAL Expression VERTICAL { $$ = node(&quot;=&quot;, cons($1, $4)); } 
+    Method
+            : Print                                { $$ = $1;}
+    Print
+            : PRINT LPAR Expression RPAR            { $$ = node(&quot;Print&quot;, $3); }
+    Expression
+            : Expression ADD Term                   { $$ = node(&quot;+&quot;, cons($1, $3)); }
+            | Expression SUBTRACT Term              { $$ = node(&quot;-&quot;, cons($1, $3)); }
+            | Term                                  { $$ = $1; }
+    Term
+            : Factor                                { $$ = $1; }
+    Factor
+            : Variable                              { $$ = $1; }
+            | Constant                              { $$ = $1; }
+            | LPAR Expression RPAR                  { $$ = $2; }
+        
+    Variable
+            : ID                                    { $$ = leaf(&quot;ID&quot;, yytext); }
+    Constant
+            : INTEGER                               { $$ = leaf(&quot;INTEGER&quot;, yytext); }
+            | REAL                                  { $$ = leaf(&quot;REAL&quot;, yytext); }
+            | STRINGS                               { $$ = leaf(&quot;STRINGS&quot;, yytext); }
+    Newlines
+            : NEWLINE               {}
+            | Newlines NEWLINE       {}
+    %%
+    #include &quot;lex.yy.c&quot;
+    void yyerror(char *s) {
+        fprintf(stderr, &quot;\n%s at %d: nearby \&quot;%s\&quot;\n\n&quot;, s, linecounter, yytext);
+        exit(EXIT_FAILURE);
+    }
+    </code>
+  </pre>
+
+  <div class="belt">
+    <h3><a name="Makefile">Makefile</a></h3>
+  </div>
+  <pre>
+    <code>    TARGET = tree
+
+    # LINK (*.o)
+    LD = clang
+    LDFLAGS = -Weverything -Werror
+
+    # COMPILE (*.c)
+    CC = clang
+    CCFLAGS = $(shell \
+        XcodeMajorVersion=`xcodebuild -version | head -n 1 | cut -d &quot; &quot; -f 2 | cut -d &quot;.&quot; -f 1`; \
+        if [ $${XcodeMajorVersion} -lt &quot;12&quot; ] ; \
+        then \
+            echo &#039;-Weverything -Werror -Wno-reserved-id-macro -Wno-unused-macros -Wno-implicit-int-conversion -Wno-sign-conversion -Wno-comma -Wno-unreachable-code -Wno-padded -Wno-missing-noreturn -Wno-missing-variable-declarations -Wno-cast-align -save-temps -O2&#039; ; \
+        else \
+            echo &#039;-Weverything -Werror -Wno-reserved-id-macro -Wno-unused-macros -Wno-poison-system-directories -Wno-implicit-int-conversion -Wno-sign-conversion -Wno-comma -Wno-unreachable-code -Wno-padded -Wno-missing-noreturn -Wno-missing-variable-declarations -Wno-cast-align -Wno-sign-compare -save-temps -O2&#039; ; \
+        fi)
+    CCTEMPS = *.o *.s *.i *.bc
+
+    # GENERATOR (*.lex and *.yac)
+    LEX = flex
+    YAC = yacc
+
+    OBJS = y.tab.o main.o
+    DEFS = defs.h
+    REXP = rexp.lex
+    LEXC = lex.yy.c
+    SYNS = syns.yac
+    YACC = y.tab.c
+    SRC = src.txt
+    TMP = tmp.txt
+
+    all: $(TARGET)
+
+    $(TARGET): $(OBJS)
+        $(LD) $(LDFLAGS) -o $@ $(OBJS)
+
+    $(OBJS): $(DEFS)
+
+    $(LEXC): $(REXP) $(DEFS)
+        $(LEX) $(REXP)
+
+    $(YACC): $(SYNS) $(LEXC) $(DEFS)
+        $(YAC) $(SYNS)
+
+    %.o: %.c
+        $(CC) $(CCFLAGS) -c $&lt; -o $@
+
+    clean:
+        -rm -f $(TARGET)* $(OBJS) $(LEXC) $(YACC) $(TMP) $(CCTEMPS) *\~
+
+    src: all
+        ./$(TARGET) &lt; $(SRC) &gt; $(TMP)
+        cat $(TMP)
+        @echo
+
+    test: src
+        @:
+    </code>
+  </pre>
+  <hr>
+  <div class="right-small">Copyright 2022 Project Hiyo, Updated: 2022/01/31 (Created: 2022/01/29) Created by Yuri Okamoto</div>
+</body>
+
+</html>
