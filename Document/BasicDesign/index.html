@@ -14,57 +14,7 @@
   <link rel="stylesheet" href="../base_style.css">
   <style type="text/css">
     <!--
-    /*シーケンス図以外の図*/
-    img.normal {
-      max-width: 450px;
-      min-width: 400px;
-      width: 30%;
-      height: auto;
-    }
-
-    /*シーケンス図*/
-    img.large {
-      max-width: 550px;
-      min-width: 400px;
-      width: 35%;
-      height: auto;
-    }
-
-    #class_check {
-      display: none;
-    }
-
-    p .label_text {
-      padding-left: 10px;
-    }
-
-    .label_content {
-      float: left;
-      transition: .5s;
-    }
-
-    #class_check:checked+.belt .label_content {
-      float: left;
-      transition: .5s;
-      transform: rotate(90deg);
-    }
-
-    .class_content {
-      height: 0;
-      opacity: 0;
-      background-color: #c1b39f;
-      transition: .5s;
-      visibility: hidden;
-    }
-
-    #class_check:checked~.class_content {
-      height: auto;
-      opacity: 1;
-      visibility: visible;
-      margin-top: 10px;
-      padding-bottom: 10px;
-      transition: .5s;
-    }
+    
     -->
   </style>
 
@@ -89,6 +39,32 @@
 
   <h2>プログラミング言語「言語処理系の開発」基本設計書</h2>
 
+  <div class="belt">
+    <h3><a name="index">目次</a></h3>
+  </div>
+  <ul>
+    <li><a href="#DateFlow">データフロー図</a></li>
+    <li><a href="#sequence">シーケンス図</a></li>
+    <li><a href="#BasicDesign">処理系の基本設計図</a></li>
+  </ul>
+  <p>
+    All figures were drawn by astah professional
+  </p>
+
+  <div class="belt">
+    <h3><a name="DateFlow">データフロー図</a></h3>
+  </div>
+  <img src="../../vm_design/svg/DateFlow.svg" alt="データフロー図" width="700">
+
+  <div class="belt">
+    <h3><a name="sequence">シーケンス図</a></h3>
+  </div>
+  <img src="../../vm_design/svg/Sequence.svg" alt="シーケンス図" width="700">
+
+  <div class="belt">
+    <h3><a name="BasicDesign">処理系の基本設計図</a></h3>
+  </div>
+  <img src="../../vm_design/svg/BasicDesign.svg" alt="基本設計図" width="700">
 
 
   <hr>
